@@ -298,3 +298,39 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished, dance_2_reset),
         [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_3, dance_3_finished, dance_3_reset),
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Custom QMK here
+
+#define DE_DEG S(DE_CIRC)
+#define DE_SECT S(KC_3)
+#define DE_EURO ALGR(KC_E)
+#define DE_DLR S(KC_4)
+
+const key_override_t bone_n1_override = 
+    ko_make_with_layers(MOD_MASK_SHIFT, KC_1, DE_DEG, 1<<3);
+const key_override_t bone_n2_override = 
+    ko_make_with_layers(MOD_MASK_SHIFT, KC_2, DE_SECT, 1<<3);
+const key_override_t bone_n6_override = 
+    ko_make_with_layers(MOD_MASK_SHIFT, KC_6, DE_DLR, 1<<3);
+const key_override_t bone_n7_override = 
+    ko_make_with_layers(MOD_MASK_SHIFT, KC_7, DE_EURO, 1<<3);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+	&bone_n1_override,
+	&bone_n2_override,
+	&bone_n6_override,
+	&bone_n7_override,
+	NULL
+};
