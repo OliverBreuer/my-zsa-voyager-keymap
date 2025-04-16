@@ -99,8 +99,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_BSPC):
             return TAPPING_TERM -50;
-        case LT(2,KC_TAB):
-            return 0;
         default:
             return TAPPING_TERM;
     }
