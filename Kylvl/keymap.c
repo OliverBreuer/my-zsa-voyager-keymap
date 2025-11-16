@@ -312,10 +312,9 @@ const key_override_t bone_n6_override =
 const key_override_t bone_n7_override = 
     ko_make_with_layers(MOD_MASK_SHIFT, KC_7, DE_EURO, 1<<3);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
-	&bone_n1_override,
+const key_override_t *key_overrides[] = {
+  &bone_n1_override,
 	&bone_n2_override,
 	&bone_n6_override,
-	&bone_n7_override,
-	NULL
+	&bone_n7_override
 };
