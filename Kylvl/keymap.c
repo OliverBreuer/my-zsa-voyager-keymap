@@ -409,3 +409,15 @@ const key_override_t *key_overrides[] = {
 	&bone_n6_override,
 	&bone_n7_override
 };
+
+// tap-and-hold backspace/left-shift should hold left-shift instead of repeating backspace
+// see also config.h: #define QUICK_TAP_TERM_PER_KEY
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT(MOD_LSFT, KC_BSPC):
+            return 0;
+        default:
+            return QUICK_TAP_TERM;
+    }
+}
+
