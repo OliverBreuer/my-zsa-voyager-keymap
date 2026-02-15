@@ -19,12 +19,11 @@ enum custom_keycodes {
 
 enum tap_dance_codes {
   DANCE_0,
-  DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_F21)
-#define DUAL_FUNC_1 LT(6, KC_F23)
-#define DUAL_FUNC_2 LT(1, KC_F4)
+#define DUAL_FUNC_0 LT(1, KC_F14)
+#define DUAL_FUNC_1 LT(13, KC_3)
+#define DUAL_FUNC_2 LT(10, KC_F22)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -32,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LEFT_GUI,    KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           DE_Z,           KC_U,           KC_I,           KC_O,           KC_P,           MT(MOD_LGUI, DE_UE),
     KC_LEFT_CTRL,   KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           DE_OE,          MT(MOD_RCTL, DE_AE),
     KC_LEFT_ALT,    DE_Y,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         MT(MOD_RSFT, DE_MINS),KC_LEFT_ALT,    
-                                                    TD(DANCE_0),    DUAL_FUNC_0,                                    LT(6, KC_ENTER),DUAL_FUNC_1
+                                                    MT(MOD_LSFT, KC_BSPC),DUAL_FUNC_0,                                    LT(6, KC_ENTER),DUAL_FUNC_1
   ),
   [1] = LAYOUT_voyager(
     DE_QUOT,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           DE_SS,          
     MT(MOD_LGUI, DE_CIRC),KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           DE_Z,           KC_U,           KC_I,           KC_O,           KC_P,           MT(MOD_LGUI, DE_UE),
     MT(MOD_LCTL, DE_HASH),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           DE_OE,          MT(MOD_RCTL, DE_AE),
     MT(MOD_LALT, DE_LESS),DE_Y,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         MT(MOD_RSFT, DE_MINS),MT(MOD_RALT, DE_PLUS),
-                                                    TD(DANCE_1),    LT(2, KC_TAB),                                  LT(6, KC_ENTER),DUAL_FUNC_1
+                                                    TD(DANCE_0),    LT(2, KC_TAB),                                  LT(6, KC_ENTER),DUAL_FUNC_1
   ),
   [2] = LAYOUT_voyager(
     KC_ESCAPE,      KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -96,11 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TD(DANCE_0):
-            return TAPPING_TERM -50;
-        case TD(DANCE_1):
-            return TAPPING_TERM -50;
         case MT(MOD_LSFT, KC_BSPC):
+            return TAPPING_TERM -50;
+        case TD(DANCE_0):
             return TAPPING_TERM -50;
         default:
             return TAPPING_TERM;
@@ -220,7 +217,7 @@ enum {
     MORE_TAPS            
 };
 
-static tap dance_state[2];
+static tap dance_state[1];
 
 uint8_t dance_step(tap_dance_state_t *state);
 
@@ -257,8 +254,7 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
     switch (dance_state[0].step) {
         case SINGLE_TAP: register_code16(KC_BSPC); break;
         case SINGLE_HOLD: register_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: register_code16(KC_LEFT_SHIFT); break;
+        case DOUBLE_TAP: register_code16(KC_LEFT_SHIFT); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
     }
 }
@@ -268,51 +264,14 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
     switch (dance_state[0].step) {
         case SINGLE_TAP: unregister_code16(KC_BSPC); break;
         case SINGLE_HOLD: unregister_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: unregister_code16(KC_LEFT_SHIFT); break;
+        case DOUBLE_TAP: unregister_code16(KC_LEFT_SHIFT); break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
     }
     dance_state[0].step = 0;
 }
-void on_dance_1(tap_dance_state_t *state, void *user_data);
-void dance_1_finished(tap_dance_state_t *state, void *user_data);
-void dance_1_reset(tap_dance_state_t *state, void *user_data);
-
-void on_dance_1(tap_dance_state_t *state, void *user_data) {
-    if(state->count == 3) {
-        tap_code16(KC_BSPC);
-        tap_code16(KC_BSPC);
-        tap_code16(KC_BSPC);
-    }
-    if(state->count > 3) {
-        tap_code16(KC_BSPC);
-    }
-}
-
-void dance_1_finished(tap_dance_state_t *state, void *user_data) {
-    dance_state[1].step = dance_step(state);
-    switch (dance_state[1].step) {
-        case SINGLE_TAP: register_code16(KC_BSPC); break;
-        case SINGLE_HOLD: register_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_TAP: register_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
-    }
-}
-
-void dance_1_reset(tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state[1].step) {
-        case SINGLE_TAP: unregister_code16(KC_BSPC); break;
-        case SINGLE_HOLD: unregister_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_TAP: unregister_code16(KC_LEFT_SHIFT); break;
-        case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
-    }
-    dance_state[1].step = 0;
-}
 
 tap_dance_action_t tap_dance_actions[] = {
         [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_0, dance_0_finished, dance_0_reset),
-        [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_1, dance_1_finished, dance_1_reset),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
