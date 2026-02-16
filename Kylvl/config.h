@@ -2,7 +2,7 @@
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define CAPS_LOCK_STATUS
-#define SERIAL_NUMBER "Kylvl/ea5Mwy"
+#define SERIAL_NUMBER "Kylvl/0Wredl"
 #define LAYER_STATE_16BIT
 
 #define TAPPING_TERM_PER_KEY
