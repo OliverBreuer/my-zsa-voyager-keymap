@@ -28,7 +28,6 @@
 #define DE_EXLM S(KC_1)
 #define DE_MORE S(KC_NUBS)
 #define DE_EQL S(KC_0)
-#define DE_AMPR S(KC_6)
 #define DE_QST S(KC_MINS)
 #define DE_LPRN S(KC_8)
 #define DE_RPRN S(KC_9)
