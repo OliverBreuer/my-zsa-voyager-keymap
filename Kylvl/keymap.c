@@ -116,8 +116,8 @@ RGB hsv_to_rgb_with_value(HSV hsv) {
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  //debug_enable = true;
-  //debug_matrix = true; // Logs matrix row/col scan events
+  debug_enable = true;
+  debug_matrix = true; // Logs matrix row/col scan events
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
