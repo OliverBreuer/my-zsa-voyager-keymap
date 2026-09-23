@@ -1,8 +1,10 @@
 #define PERMISSIVE_HOLD
 
+#define QUICK_TAP_TERM 0
+
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define CAPS_LOCK_STATUS
-#define SERIAL_NUMBER "Kylvl/qmlYYV"
+#define SERIAL_NUMBER "Kylvl/XbpedB"
 #define LAYER_STATE_16BIT
 
 #define TAPPING_TERM_PER_KEY
